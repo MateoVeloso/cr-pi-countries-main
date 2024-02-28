@@ -1,0 +1,27 @@
+.landingContainer {
+  background-image: url("../../assets/backgrounds/bg-globe.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column; /* Stack the title and login section vertically */
+  align-items: center;
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px; /* Add margin to create space between title and login section */
+  z-index: 1; /* Ensure the title is above the login section */
+}
+
+.loginSection {
+  position: relative;
+  z-index: 0; /* Set z-index to ensure login section is behind the title */
+}

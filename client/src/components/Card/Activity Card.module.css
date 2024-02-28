@@ -1,0 +1,37 @@
+.activityCard {
+  background-color: #ffffffb3; /* Adjust background color */
+  backdrop-filter: blur(3px);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  height: 200px;
+}
+
+.activityCard h2 {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.activityCard .details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.activityCard .details h4 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.activityCard .details p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.countriesMargin {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.pMargin {
+  margin-top: 5px;
+}

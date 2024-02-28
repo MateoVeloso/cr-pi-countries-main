@@ -1,0 +1,47 @@
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  background-color: #ffffffb3; /* Adjust background color */
+  backdrop-filter: blur(3px);
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  min-height: 170px;
+  max-height: 170px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.cardContent {
+  display: flex;
+  align-items: center;
+}
+
+.cardImage {
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+.cardText {
+  flex: 1;
+}
+
+.cardTitle {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.cardSubText {
+  font-size: 16px;
+  font-weight: 400;
+}
