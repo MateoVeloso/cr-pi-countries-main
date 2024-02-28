@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Country', {
     id: {
-      type: DataTypes.CHAR(3),
+      type: DataTypes.STRING(3),
       primaryKey: true
     },
     name: {
@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
     },
     flag: {
       type: DataTypes.STRING,
-      validate: {isUrl: true},
       allowNull: false,
     },
     continent: {
@@ -29,10 +28,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     area: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
     },
     population: {
       type: DataTypes.INTEGER,
     }
-  });
+  },
+  {timestamps: false}
+  );
 };
