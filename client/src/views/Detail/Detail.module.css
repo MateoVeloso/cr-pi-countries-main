@@ -1,27 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}
+
 .detailContainer {
-  background-image: url("../../assets/backgrounds/bg-elephants.jpg");
+  background-image: url("../../assets/backgrounds/countries.jpg");
   background-size: cover;
   background-attachment: fixed;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 92.3vh;
   padding-top: 70px;
-  background-position: center;
 }
 
 .detailBody {
-  background-color: #ffffffb3; /* Adjust background color */
+  background-color: rgba(148, 78, 99, 0.7);
   backdrop-filter: blur(3px);
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 20px;
   display: flex;
   justify-content: center;
-  width: 400px;
+  width: 60rem;
 }
 
 .countryInfo {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos de .countryInfo en la parte superior */
+  margin-bottom: 20px; /* Espaciado entre .countryInfo y .details */
+  align-items: center;
+  justify-content: center;
+  margin-right: 3rem;
+  border-right: 2px;
+  border-right-style: solid;
+  border-color: #CAA6A6;
 }
 
 .countryInfo > div {
@@ -37,6 +52,7 @@
 .details {
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos de .details a la izquierda */
 }
 
 .details > div {
@@ -46,27 +62,28 @@
 .detailBody h1 {
   font-size: 24px;
   margin-bottom: 10px;
+  color: #944E63;
+  background-color: RGB(255, 231, 231, 0.7);
+  padding: 1rem 2rem;
+  border-radius: 15px;
 }
 
 .detailBody h2 {
   font-size: 18px;
   margin-bottom: 5px;
+  color: #FFE7E7;
 }
 
 .detailBody p {
   margin: 0;
-}
-
-.flagContainer {
-  width: 200px; /* Set your desired width */
-  height: 300px; /* Set your desired height */
+  color: #FFE7E7;
 }
 
 .flagImage {
-  width: auto;
-  max-height: 200px;
+  width: 20rem;
 }
 
 .link {
-  color: black;
+  color: #FFE7E7;
+  text-decoration: none;
 }

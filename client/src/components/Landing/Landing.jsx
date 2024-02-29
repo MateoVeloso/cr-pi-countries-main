@@ -4,9 +4,9 @@ import styles from "./Landing.module.css";
 
 export default function Landing() {
   return (
-    <div className={styles.pageContainer}>
+    <div>
       <Link to="/home">
-        <button>Enter</button>
+        <button className={styles.button}>Enter</button>
       </Link>
     </div>
   );

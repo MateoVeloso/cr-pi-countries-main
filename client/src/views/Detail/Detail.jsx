@@ -29,73 +29,48 @@ const Detail = () => {
 
   return (
     <div className={styles.detailContainer}>
-      <div className={styles.detailBody}>
-        <div className={styles.countryInfo}>
-          <div className={styles.flagContainer}>
-            {country.flag && (
-              <img
-                src={country.flag}
-                alt={country.name}
-                className={styles.flag}
-              />
-            )}{" "}
-            <div>
-              <h1>{country.name}</h1>
-            </div>
-            <div>
-              <h2>Capital:</h2>
-              <p>{country.capital}</p>
-            </div>
+    <div className={styles.detailBody}>
+      <div className={styles.countryInfo}>
+        <div>
+          <h1>{country.name}</h1>
+        </div>
+        <div className={styles.flagContainer}>
+          {country.flag && (<img src={country.flag} alt={country.name} className={styles.flagImage}/>)}{" "}
+        </div>
+      </div>
+      <div className={styles.details}>
+          <div>
+            <h2><u>Capital:</u> {country.capital}</h2>
           </div>
-          <div className={styles.details}>
-            <div>
-              <h2>Continent:</h2>
-              <p>{country.continent}</p>
-            </div>
-            <div>
-              <h2>Subregion:</h2>
+        <div>
+          <h2><u>Continent:</u> {country.continent}</h2>
+        </div>
+        <div>
+          <h2><u>Subregion:</u> {country.subregion === "No subregion has been specified"? "No subregion has been specified": country.subregion}</h2>
+        </div>
+        <div>
+          <h2><u>Area:</u> {formatNumber(country.area === null? "No area has been specified": `${country.area}km²`)}</h2>
+        </div>
+        <div>
+          <h2><u>Population:</u> {formatNumber(country.population)}</h2>
+        </div>
+        <div>
+          <h2>
+            {country.Activities && country.Activities.length > 0 ? (<strong>Activities:</strong>) : ("Activities: (no activity has been assigned)")}
+          </h2>
+          {country.Activities && country.Activities.length > 0 && (
+            <NavLink to="/activities" className={styles.link}>
               <p>
-                {country.subregion === "No subregion has been specified"
-                  ? "No subregion has been specified"
-                  : country.subregion}
+                {country.Activities
+                  .map((activity) => activity.name)
+                  .join(", ")}
               </p>
-            </div>
-            <div>
-              <h2>Area:</h2>
-              <p>
-                {formatNumber(
-                  country.area === null
-                    ? "No area has been specified"
-                    : `${country.area}km²`
-                )}
-              </p>
-            </div>
-            <div>
-              <h2>Population:</h2>
-              <p>{formatNumber(country.population)}</p>
-            </div>
-            <div>
-              <h2>
-                {country.activities && country.activities.length > 0 ? (
-                  <strong>Activities:</strong>
-                ) : (
-                  "Activities:"
-                )}
-              </h2>
-              {country.activities && country.activities.length > 0 && (
-                <NavLink to="/activities" className={styles.link}>
-                  <p>
-                    {country.activities
-                      .map((activity) => activity.name)
-                      .join(", ")}
-                  </p>
-                </NavLink>
-              )}
-            </div>
-          </div>
+            </NavLink>
+          )}
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

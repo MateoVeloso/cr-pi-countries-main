@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
 }
 
@@ -9,31 +9,23 @@
   padding: 10px;
   box-sizing: border-box;
   margin: 10px 0;
+  border: none;
+  background-color: #FFE7E7;
+  width: 30rem;
   border-radius: 10px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+  height: 2rem;
 }
 
 .searchBarBtns {
-  background-color: #1a1a1aa1;
+  background-color: #944E63;
   transition: transform 0.3s ease-in-out;
   font-size: 1em;
+  color: #FFE7E7;
+  border: none;
+  border-radius: 10px;
+  height: 1.5rem;
 }
 
 .searchBarBtns:hover {
-  transform: scale(1.12);
-}
-
-.logOutBtn {
-  background-color: #1a1a1aa1;
-  font-size: 1em;
-  transition: color 1s ease-in-out, background-color 0.3s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
-    transform 0.3s ease-in-out;
-}
-
-.logOutBtn:hover {
-  background-color: #bb1d1dab;
-  transform: scale(1.12);
+  background-color: #B47B84;
 }

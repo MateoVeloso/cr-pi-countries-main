@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Activity Card.module.css";
 const ActivityCard = ({ activity }) => {
-  const { name, difficulty, duration, season, countries } = activity;
+  const { name, difficulty, duration, season, Countries } = activity;
 
   return (
     <div className={styles.activityCard}>
@@ -23,12 +23,7 @@ const ActivityCard = ({ activity }) => {
       <div>
         <h4 className={styles.countriesMargin}>Countries:</h4>
         <p className={styles.pMargin}>
-          {countries?.map((country, index) => (
-            <React.Fragment key={index}>
-              {country.name}
-              {index !== countries.length - 1 && ", "}
-            </React.Fragment>
-          ))}
+          {Countries?.map((country, index) => (<React.Fragment key={index}>{country.name}{index !== Countries.length - 1 && ", "}</React.Fragment>))}
         </p>
       </div>
     </div>

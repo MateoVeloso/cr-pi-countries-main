@@ -1,17 +1,12 @@
 .nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: fixed;
-  top: 10px;
+  top: 3%;
   left: 50%;
   transform: translateX(-50%);
-  width: 40%;
-  background: rgb(37 35 34 / 75%);
+  width: 60%;
+  background: rgba(148, 78, 99, 0.7);
   backdrop-filter: blur(3px);
-  padding: 10px;
-  text-align: center;
-  z-index: 1000;
+  padding: 1px;
   border-radius: 10px;
-  box-shadow: 0 0 8px 10px rgba(0, 0, 0, 0.1);
 }

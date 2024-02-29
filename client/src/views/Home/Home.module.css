@@ -1,5 +1,5 @@
 .homeBackground {
-  background-image: url("../../assets/backgrounds/bg-antique-car.jpg");
+  background-image: url("../../assets/backgrounds/countries.jpg");
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
@@ -14,32 +14,44 @@
 .filterSelect {
   padding: 5px;
   margin-right: 10px;
-  background-color: #1a1a1aa1;
-  color: #ffffff;
+  background-color: #944E63;
+  color: #FFE7E7;
   border: none;
   cursor: pointer;
   border-radius: 10px;
   transition: transform 0.3s ease-in-out;
 }
 
-.filterSelect:hover {
-  transform: scale(1.06);
-}
-
 .filterSelect:focus {
   outline: none;
 }
 
+.filterSelect:hover {
+  background-color: #B47B84;
+}
+
 .filterResetBtn {
-  background-color: #1a1a1aa1;
+  background-color: #944E63;
   transition: transform 0.3s ease-in-out;
+  border-radius: 30px;
+  height: 2rem;
+  width: 2rem;
+  align-content: center;
+  justify-content: center;
+  border: none;
 }
 
 .filterResetBtn:hover {
-  transform: scale(1.06);
+  background-color: #B47B84;
 }
 
 .filterLabels{
-  color: white;
+  color: #FFE7E7;
   padding-right: 6px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
 }

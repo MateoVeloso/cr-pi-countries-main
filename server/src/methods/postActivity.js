@@ -1,7 +1,7 @@
 const { Activity, Country } = require("../db");
 
 module.exports.postActivity = async (req, res) => {
-  const { id, name, difficulty, duration, season, countries } = req.body;
+  const { name, difficulty, duration, season, countriesId } = req.body;
   try {
     const activity = await Activity.create({
       name,
@@ -9,9 +9,9 @@ module.exports.postActivity = async (req, res) => {
       duration,
       season,
     });
-    if(countries && countries.length > 0){         //relaciona la actividad con el pais
+    if(countriesId && countriesId.length > 0){         //relaciona la actividad con el pais
       const selectedCountries= await Country.findAll({
-          where : {id:countries},
+          where : {id:countriesId},
       });
       await activity.setCountries(selectedCountries);
   }else{

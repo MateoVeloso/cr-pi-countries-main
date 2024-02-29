@@ -15,7 +15,6 @@ const ActivityForm = () => {
     season: "",
     countriesId: [],
   });
-
   const [errors, setErrors] = useState({
     name: "",
     difficulty: "",
@@ -25,13 +24,10 @@ const ActivityForm = () => {
   });
 
   const [created, setCreated] = useState(false);
-
   const allCountries = useSelector((state) => state.allCountries);
   const [countriesCopied, setCountriesCopied] = useState([]);
 
-  useEffect(() => {
-    setCountriesCopied(allCountries);
-  }, [allCountries]);
+  useEffect(() => {setCountriesCopied(allCountries)}, [allCountries]);
 
   const dispatch = useDispatch();
 
@@ -41,12 +37,10 @@ const ActivityForm = () => {
       if (data.name) {
         setCreated(true);
         alert("Activity created successfully");
-        dispatch(getAllCountries()); //si no vuelvo a traer los paises, al aplicar resetWithActivities allCountries queda vacio hasta que vuelva al home. Se vuelven a guardar con el useEffect ya que tiene allCountries como dependencia
+        dispatch(getAllCountries());
       }
     } catch (error) {
-      error.response && error.response.data
-        ? alert(JSON.stringify(error.response.data, null, 2))
-        : alert(error.message);
+      error.response && error.response.data? alert(JSON.stringify(error.response.data, null, 2)): alert(error.message);
     }
   };
 
@@ -57,35 +51,18 @@ const ActivityForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setActivityValues({
-      ...activityValues,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: validateField(name, value),
-    });
-  };
+    setActivityValues({...activityValues, [name]: value});
+    setErrors({...errors, [name]: validateField(name, value)});
+  }
 
   const handleChangeCountries = (event) => {
-    const selectedOptions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
+    const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
 
-    setActivityValues({
-      ...activityValues,
-      countriesId: selectedOptions,
-    });
+    setActivityValues({...activityValues, countriesId: [...selectedOptions]});
 
     dispatch(selectCountry(selectedOptions));
 
-    // Since `countriesId` is an array, you might need to adjust the validation logic accordingly.
-    setErrors({
-      ...errors,
-      countriesId: validateField("countriesId", selectedOptions),
-    });
+    setErrors({...errors, countriesId: validateField("countriesId", selectedOptions)});
   };
 
   const handleClick = () => {
@@ -109,7 +86,7 @@ const ActivityForm = () => {
   return (
     <div className={styles.bg}>
       <div className={styles.formContainer}>
-        <h1>Create Tourist Activity</h1>
+        <h1>Create an Activity:</h1>
         {!created ? (
           <form onSubmit={handleSubmit}>
             <div>
@@ -120,14 +97,13 @@ const ActivityForm = () => {
                 name="name"
                 value={activityValues.name}
                 onChange={handleChange}
-                placeholder="Name your activity"
-                // autoComplete="off"
+                placeholder="activity name..."
               />
               {errors.name && <p>{errors.name}</p>}
             </div>
             <div>
               <label className={styles.formLabel} htmlFor="difficulty">
-                Select difficulty:
+                Difficulty:
               </label>
               <select
                 className={styles.formSelect}
@@ -138,16 +114,16 @@ const ActivityForm = () => {
                 <option value="" disabled>
                   Difficulty
                 </option>
-                <option value="1">Difficulty 1 (Easy)</option>
-                <option value='2'>Difficulty 2 (Easy - Medium)</option>
-                <option value='3'>Difficulty 3 (Medium)</option>
-                <option value='4'>Difficulty 4 (Medium - Hard)</option>
-                <option value='5'>Difficulty 5 (Hard)</option>
+                <option value="1">1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
               </select>
               {errors.difficulty && <p>{errors.difficulty}</p>}
             </div>
             <div>
-              <label htmlFor="duration">Duration (hr):</label>
+              <label htmlFor="duration">Duration(hr):</label>
               <input
                 className={styles.formInput}
                 type="number"
@@ -187,7 +163,7 @@ const ActivityForm = () => {
               >
                 {countriesCopied.map((country) => (
                   <option
-                    onClick={() => console.log("Country ID:", country.id)}
+                    onChange={() => console.log("Country ID:", country.id)}
                     value={country.id}
                     key={country.id}
                   >

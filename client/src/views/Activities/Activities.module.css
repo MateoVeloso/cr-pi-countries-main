@@ -1,16 +1,21 @@
 .container {
-  background-image: url("../../assets/backgrounds/bg-ilDuomo.jpg");
+  background-image: url("../../assets/backgrounds/activities.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  height: 100vh; /* Adjust as needed */
-  /* padding-top: 90px; */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .container > div {
-  text-align: center; /* Optional: Align the content horizontally within the div */
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
 }

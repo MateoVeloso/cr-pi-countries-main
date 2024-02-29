@@ -4,7 +4,7 @@
 }
 
 .card {
-  background-color: #ffffffb3; /* Adjust background color */
+  background-color: RGB(255, 231, 231, 0.7); /* Adjust background color */
   backdrop-filter: blur(3px);
   border: none;
   border-radius: 10px;
@@ -16,7 +16,8 @@
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: scale(98%);
+  background-color: RGB(255, 231, 231, 0.9);
 }
 
 .cardContent {

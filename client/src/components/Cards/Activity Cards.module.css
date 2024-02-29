@@ -3,6 +3,17 @@
   flex-direction: column;
   align-items: center;
   width: 90%;
+  height: 80%;
+  margin-top: 3rem;
+  background-color: rgba(255, 231, 231, 0.5);
+  border-radius: 10px;
+}
+
+h1{
+  background-color: rgba(148, 78, 99, 0.7);
+  border-radius: 10px;
+  padding: 0 1rem;
+  color: #FFE7E7;
 }
 
 .filters {
@@ -25,47 +36,50 @@
 }
 
 .activityContainer {
-  display: grid;
-  grid-template-columns: repeat(3, 350px);
-  gap: 20px;
-  max-width: 90%; /* Adjust maximum width of the grid */
+  display: flex;
+  flex-wrap: wrap; /* Centra las tarjetas horizontalmente */
+  gap: 20px; /* Espacio entre las tarjetas */
+  max-width: 90%; /* Ajusta el ancho máximo del contenedor */
+  margin: auto; /* Centra el contenedor horizontalmente */
 }
 
-.activityCard {
+.activityCard { /* Ancho completo dentro del contenedor */
   border: none;
   border-radius: 8px;
   padding: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: auto;
+  margin-bottom: 1rem;
+  align-self: flex-end;
+  margin-left: auto;
+  margin-right: auto; 
 }
 
 .pagination button {
   padding: 8px 16px;
   margin: 0 5px;
-  background-color: #ffffffb3; /* Adjust background color */
+  background-color: rgba(148, 78, 99, 0.7); /* Adjust background color */
   backdrop-filter: blur(3px);
-  color: #000000;
+  color: #FFE7E7;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
 
 .pagination button:hover {
-  transform: scale(1.06);
+  background-color: #B47B84;
 }
 
 .pagNum {
-  color: white;
-  background-color: #ffffffb3; /* Adjust background color */
+  color: #FFE7E7;
+  background-color: rgba(148, 78, 99, 0.7); /* Adjust background color */
   backdrop-filter: blur(3px);
-  color: #000000;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 7px 16px;
 }

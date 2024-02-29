@@ -5,7 +5,7 @@ module.exports.getCountryById = async (req, res) =>{
         const { idPais } = req.params;
         const country = await Country.findOne({
             where: { id: idPais },
-            include: [{ model: Activity, attributes: ["name"] }],
+            include: [{ model: Activity, attributes: ["name"]}],
           });
           res.json(country);
     }catch(error){

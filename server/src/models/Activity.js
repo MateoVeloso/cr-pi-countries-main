@@ -12,10 +12,9 @@ module.exports = (sequelize) =>{
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            dificulty: {
+            difficulty: {
                 type: DataTypes.STRING,
                 allowNull: true,
-                validate: {min: 1, max: 5,}
             },
             duration: {
                 type: DataTypes.INTEGER

@@ -15,7 +15,7 @@ const ActivityCards = ({ activities }) => {
   const filteredActivities = activities
 
   const { currentPage, currentItems, nextPage, prevPage, totalPages } =
-    paginate(filteredActivities, 6);
+    paginate(filteredActivities, 8);
 
   const handleFilterChange = (filterName, value) => {
     setFilters({
@@ -29,36 +29,7 @@ const ActivityCards = ({ activities }) => {
   };
   return (
     <div className={styles.container}>
-      <h2>These are the activities created so far:</h2>
-      <div className={styles.filters}>
-        <input
-          className={styles.inputActivities}
-          type="text"
-          placeholder="Filter by Name"
-          value={filters.name}
-          onChange={(e) => handleFilterChange("name", e.target.value)}
-        />
-        <select
-          className={styles.filterSelect}
-          value={filters.difficulty}
-          onChange={(e) => handleFilterChange("difficulty", e.target.value)}
-        >
-          <option value="">Filter by Difficulty</option>
-          <option value='1'>1 (Easy)</option>
-          <option value='2'>2 (Easy - Medium)</option>
-          <option value='3'>3 (Medium)</option>
-          <option value='4'>4 (Medium - Hard)</option>
-          <option value='5'>5 (Hard)</option>
-        </select>
-        <select
-          className={styles.filterSelect}
-          value={sortOrder}
-          onChange={(e) => handleSortOrderChange(e.target.value)}
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
+      <h1>These are the activities created so far:</h1>
       <div className={styles.activityContainer}>
         {currentItems.map((activity) => (
           <ActivityCard key={activity.id} activity={activity} />
