@@ -5,6 +5,7 @@ import {
   SEARCH_COUNTRY,
   SELECT_COUNTRIES,
   SORT_COUNTRIES,
+  FILTER_ACTIVITY
 } from "./actions";
 
 const initialState = {
@@ -21,15 +22,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
   switch (type) {
     case GET_ALL_COUNTRIES:
-      // console.log("Payload at Reducer:", payload);
+
       return {
         ...state,
         allCountries: payload,
         allCountriesBackup: payload,
       };
     case SEARCH_COUNTRY:
-      const searchTerm = payload; // Assuming payload is the searched country object
-
+      const searchTerm = payload;
       return {
         ...state,
         searchResults: searchTerm,
@@ -38,7 +38,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       if (payload === "All") {
         return {
           ...state,
-          filteredResults: [], // Show all countries
+          filteredResults: [],
           searchResults: [],
         };
       }
@@ -55,7 +55,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.log(payload);
       return {
         ...state,
-        filteredResults: filteredCountries, // Show filtered countries
+        filteredResults: filteredCountries, 
       };
     case SORT_COUNTRIES:
       const hasFilteredResults = state.filteredResults.length > 0;
@@ -71,11 +71,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         resultsToSort = [...state.allCountries];
       }
 
-      // Sort the results based on the payload
       if (payload === "All") {
         return {
           ...state,
-          filteredResults: [], // Show all countries
+          filteredResults: [], 
           searchResults: [],
         };
       } else if (payload === "Ascending") {
@@ -92,7 +91,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         resultsToSort.sort((a, b) => a.area - b.area);
       }
 
-      // Update the state based on the scenario
       if (hasFilteredResults) {
         return {
           ...state,
@@ -120,8 +118,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         activityNames: payload,
       };
-    default:
-      return state; // default return state unchanged
+    case FILTER_ACTIVITY:
+        const resetCountries = [...state.allCountries];
+        const filteredActivity = resetCountries.filter((country) =>
+          country.Activities.some((activity) => activity.name === payload)
+        );
+        return {
+          ...state,
+          filteredResults:
+          filteredActivity.length > 0 ? filteredActivity : resetCountries,
+      };
+    default: return state
   }
 };
 export default rootReducer;

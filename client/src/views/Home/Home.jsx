@@ -5,6 +5,7 @@ import {
   getActivitiesNames,
   getAllCountries,
   sortCountries,
+  filterActivity
 } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
 import styles from "./Home.module.css";
@@ -29,10 +30,10 @@ const Home = () => {
     return showSearch();
   };
 
-  // const filterActivities = () => {
-  //   if (activityNames.length > 0) return activityNames;
-  //   return filterResults;
-  // };
+  const handleFilterActivity = (e) => {
+    dispatch(filterActivity(e.target.value));
+  }
+
   useEffect(() => {
     dispatch(getAllCountries());
     dispatch(getActivitiesNames());
@@ -61,7 +62,7 @@ const Home = () => {
           <div>
             <div className={styles.filterSection}>
               <label className={styles.filterLabels} htmlFor="Select Order">
-                Select Order
+                Order
               </label>
               <select
                 className={styles.filterSelect}
@@ -72,20 +73,20 @@ const Home = () => {
               >
                 <option value="All">All</option>
                 <optgroup label="Order by name">
-                  <option value="Ascending">Name A-Z</option>
-                  <option value="Descending">Name Z-A</option>
+                  <option value="Ascending">A-Z</option>
+                  <option value="Descending">Z-A</option>
                 </optgroup>
                 <optgroup label="Order by population">
-                  <option value="MaxPop">Max Pop</option>
-                  <option value="MinPop">Min Pop</option>
+                  <option value="MaxPop">from higher Pop</option>
+                  <option value="MinPop">from lower Pop</option>
                 </optgroup>
                 <optgroup label="Order by area">
-                  <option value="MaxArea">Max Area</option>
-                  <option value="MinArea">Min Area</option>
+                  <option value="MaxArea">from largest</option>
+                  <option value="MinArea">from smallest</option>
                 </optgroup>
               </select>
               <label className={styles.filterLabels} htmlFor="Select Filter">
-                Select Continent
+                Filter by Continents
               </label>
               <select
                 className={styles.filterSelect}
@@ -97,21 +98,19 @@ const Home = () => {
                 <optgroup label="Continents">
                   <option value="All">All</option>
                   <option value="Africa">Africa</option>
-                  <option value="Antarctic">Antarctic</option>
+                  <option value="Americas">America</option>
+                  <option value="Antarctica">Antarctic</option>
                   <option value="Asia">Asia</option>
                   <option value="Europe">Europe</option>
                   <option value="Oceania">Oceania</option>
-                  <option value="Americas">America</option>
                 </optgroup>
               </select>
-              <label className={styles.filterLabels} htmlFor="">
-                Select Activities
+              <label className={styles.filterLabels}>
+                Filter by Activity
               </label>
-              <select name="" id="" className={styles.filterSelect}>
+              <select className={styles.filterSelect} onChange={handleFilterActivity}>
                 <option value="All">All</option>
-                {activityNames.map((activity) => (
-                  <option key={activity}>{activity}</option>
-                ))}
+                {activityNames.map((activity) => (<option key={activity}>{activity}</option>))}
               </select>
               <button className={styles.filterResetBtn} onClick={resetFilters}>
                 <img

@@ -9,13 +9,13 @@ module.exports.postActivity = async (req, res) => {
       duration,
       season,
     });
-    if(countriesId && countriesId.length > 0){         //relaciona la actividad con el pais
+    if(countriesId && countriesId.length > 0){
       const selectedCountries= await Country.findAll({
           where : {id:countriesId},
       });
       await activity.setCountries(selectedCountries);
   }else{
-      await activity.destroy();                 //si no proporciona pais elimina la actividade creada
+      await activity.destroy();
       return res.status(400).json({menssage: 'Debe proporcionar un pais '});
   }
     res.status(201).json(activity);

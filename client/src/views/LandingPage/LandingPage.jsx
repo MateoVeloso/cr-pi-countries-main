@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <div className={styles.landingContainer}>
       <div className={styles.contentContainer}>
-        <h1 className={styles.title}>Countries Individual Project</h1>
+        <h1 className={styles.title}>Countries-PI by Mateo Veloso(ft46b)</h1>
         <div className={styles.loginSection}>
           <Landing />
         </div>

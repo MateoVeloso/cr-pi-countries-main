@@ -36,7 +36,7 @@ const ActivityForm = () => {
       const { data } = await axios.post(URL, formValues);
       if (data.name) {
         setCreated(true);
-        alert("Activity created successfully");
+        alert("Activity Added");
         dispatch(getAllCountries());
       }
     } catch (error) {
@@ -86,8 +86,7 @@ const ActivityForm = () => {
   return (
     <div className={styles.bg}>
       <div className={styles.formContainer}>
-        <h1>Create an Activity:</h1>
-        {!created ? (
+        <h1 className={styles.title}>Create your Activity:</h1>
           <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name">Name:</label>
@@ -112,7 +111,7 @@ const ActivityForm = () => {
                 onChange={handleChange}
               >
                 <option value="" disabled>
-                  Difficulty
+                  difficulty...
                 </option>
                 <option value="1">1</option>
                 <option value='2'>2</option>
@@ -123,19 +122,19 @@ const ActivityForm = () => {
               {errors.difficulty && <p>{errors.difficulty}</p>}
             </div>
             <div>
-              <label htmlFor="duration">Duration(hr):</label>
+              <label htmlFor="duration">Duration:</label>
               <input
                 className={styles.formInput}
                 type="number"
                 name="duration"
                 value={activityValues.duration}
                 onChange={handleChange}
-                placeholder="How long did it last?"
+                placeholder="duration(hs)..."
               />
               {errors.duration && <span>{errors.duration}</span>}
             </div>
             <div>
-              <label htmlFor="season">Select season:</label>
+              <label htmlFor="season">Season:</label>
               <select
                 className={styles.formSelect}
                 name="season"
@@ -143,7 +142,7 @@ const ActivityForm = () => {
                 onChange={handleChange}
               >
                 <option value="" disabled>
-                  Select season
+                  season...
                 </option>
                 <option value="summer">Summer</option>
                 <option value="autumn">Autumn</option>
@@ -153,7 +152,7 @@ const ActivityForm = () => {
               {errors.season && <span>{errors.season}</span>}
             </div>
             <div>
-              <label htmlFor="countries">Select country/es: </label>
+              <label htmlFor="countries">Select at least one country: </label>
               <select
                 className={styles.formSelect}
                 name="countries"
@@ -175,15 +174,10 @@ const ActivityForm = () => {
             </div>
             <div className={styles.formButtonContainer}>
               <button className={styles.formButton} type="submit">
-                Create Activity
+                Create
               </button>
             </div>
           </form>
-        ) : (
-          <button className={styles.formButton} onClick={handleClick}>
-            Do you want to create another activity?
-          </button>
-        )}
       </div>
     </div>
   );

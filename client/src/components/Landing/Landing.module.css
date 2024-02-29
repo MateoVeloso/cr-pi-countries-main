@@ -1,15 +1,17 @@
 .button {
-  background-color: #FFE7E7; /* Color de fondo del botón */
-  color: rgba(148, 78, 99, 0.9); /* Color del texto del botón */
-  padding: 10px 20px; /* Espaciado interno del botón */
-  border: 2px solid rgba(148, 78, 99, 0.9); /* Borde del botón */
-  border-radius: 5px; /* Bordes redondeados del botón */
-  cursor: pointer; /* Cambia el cursor a una mano cuando se pasa por encima del botón */
-  width: 200px; /* Ajusta el ancho del botón */
-  height: 60px; /* Ajusta la altura del botón */
+  background-color: #FFE7E7; 
+  color: rgba(148, 78, 99, 0.9);
+  padding: 10px 20px; 
+  border: 2px solid rgba(148, 78, 99, 0.9); 
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  height: 60px; 
   font-size: larger;
+  transition: 0.7s;
 }
 
 .button:hover {
-  background-color: rgba(255, 255, 255, 0.7); /* Cambia el color de fondo cuando se pasa el cursor por encima */
+  background-color: rgba(255, 255, 255, 1);
+  transform: scale(105%);
 }
