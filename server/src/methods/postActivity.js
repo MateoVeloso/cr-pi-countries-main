@@ -1,36 +1,24 @@
 const { Activity, Country } = require("../db");
 
 module.exports.postActivity = async (req, res) => {
+  const { id, name, difficulty, duration, season, countries } = req.body;
   try {
-    const { name, difficulty, duration, season, countriesIds } = req.body;
-
     const activity = await Activity.create({
       name,
       difficulty,
       duration,
       season,
-      countries: countriesIds,
     });
-    let countriesFound = [];
-
-    for (let i = 0; i < countriesIds.length; i++) {
-        const country = await Country.findOne({where: {id: countriesIds[i],}})
-        country && countriesFound.push(country)
-    }
-
-    await activity.addCountry(countriesFound);
-
-    const ActivitySet = await Activity.findOne(
-        {where: {name: activity.name,},
-        include: {
-            model: Country,
-            attributes: ["name"],
-            through: {attributes: []},
-            order: [["ASC"]],
-        },
-    });
-
-    res.json([ActivitySet]);
+    if(countries && countries.length > 0){         //relaciona la actividad con el pais
+      const selectedCountries= await Country.findAll({
+          where : {id:countries},
+      });
+      await activity.setCountries(selectedCountries);
+  }else{
+      await activity.destroy();                 //si no proporciona pais elimina la actividade creada
+      return res.status(400).json({menssage: 'Debe proporcionar un pais '});
+  }
+    res.status(201).json(activity);
   }catch(error){
     res
       .status(500)

@@ -1,5 +1,5 @@
 import ActivityCard from "../Card/Activity Card";
-import usePagination from "../../Custom Hooks/usePagination";
+import paginate from "../../Custom Hooks/paginate";
 import { useState } from "react";
 import styles from "./Activity Cards.module.css";
 
@@ -15,7 +15,7 @@ const ActivityCards = ({ activities }) => {
   const filteredActivities = activities
 
   const { currentPage, currentItems, nextPage, prevPage, totalPages } =
-    usePagination(filteredActivities, 6);
+    paginate(filteredActivities, 6);
 
   const handleFilterChange = (filterName, value) => {
     setFilters({

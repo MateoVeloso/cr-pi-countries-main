@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchCountry } from "../../redux/actions";
-import styles from "./SearchBar.module.css"; // Import CSS Modules styles
+import styles from "./SearchBar.module.css";
 import { NavLink } from "react-router-dom";
 
 export const SearchBar = () => {
@@ -23,9 +23,6 @@ export const SearchBar = () => {
       <NavLink to="/home">
         <button className={styles.searchBarBtns}>Home</button>
       </NavLink>
-      <NavLink to="/about">
-        <button className={styles.searchBarBtns}>About</button>
-      </NavLink>
       <input
         className={styles.searchInput}
         type="text"
@@ -38,9 +35,6 @@ export const SearchBar = () => {
       </NavLink>
       <NavLink to="/activities">
         <button className={styles.searchBarBtns}>Activities</button>
-      </NavLink>
-      <NavLink to="/">
-        <button className={styles.logOutBtn}>Logout</button>
       </NavLink>
     </div>
   );

@@ -47,7 +47,7 @@ export const searchCountry = (country) => {
   return async (dispatch) => {
     try {
       const { data } = await axios(
-        endpointURL + `countries/name?query=${country}`
+        endpointURL + `countries/name?name=${country}`
       );
       dispatch({
         type: SEARCH_COUNTRY,

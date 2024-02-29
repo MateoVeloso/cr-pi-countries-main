@@ -41,7 +41,6 @@ const ActivityForm = () => {
       if (data.name) {
         setCreated(true);
         alert("Activity created successfully");
-        // dispatch(resetWithActivities());
         dispatch(getAllCountries()); //si no vuelvo a traer los paises, al aplicar resetWithActivities allCountries queda vacio hasta que vuelva al home. Se vuelven a guardar con el useEffect ya que tiene allCountries como dependencia
       }
     } catch (error) {
