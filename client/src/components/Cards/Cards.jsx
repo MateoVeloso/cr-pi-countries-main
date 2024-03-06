@@ -16,7 +16,7 @@ const Cards = ({ countries }) => {
       <div className={styles.pagination}>
         <button className={styles.paginationBtn} onClick={prevPage} disabled={currentPage === 1}>←</button>
         <span className={styles.pagNum}>{currentPage} of {totalPages!==0 ? totalPages : 1}</span>
-        <button className={styles.paginationBtn} onClick={nextPage} disabled={currentPage === totalPages}>→</button>
+        <button className={styles.paginationBtn} onClick={nextPage} disabled={currentPage === totalPages || totalPages === 0}>→</button>
       </div>
     </div>
   );

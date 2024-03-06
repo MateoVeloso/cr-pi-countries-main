@@ -17,7 +17,6 @@ const initialState = {
 
 const rootReducer = (state = initialState, { type, payload }) => {
   console.log("Current state:", state);
-
   switch (type) {
     case GET_ALL_COUNTRIES:
       payload = payload.sort((a, b) => a.name.localeCompare(b.name));
@@ -28,16 +27,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case SEARCH_COUNTRY:
+      const orderedSearch = state.allCountriesBackup.filter(country => {return payload.some(SrchCountry => SrchCountry.id === country.id)});
       return {
         ...state,
-        allCountries: payload,
+        allCountries: orderedSearch,
       };
 
     case FILTERS:
       const { continent, activity } = payload;
       let filteredCountries = state.allCountries;
       if (continent !== "All") {filteredCountries = filteredCountries.filter((country) => country.continent === continent)}
-      if (activity !== "All") {filteredCountries = filteredCountries.filter((country) =>  country.Activities.some((act) => act.name === activity))}
+      if (activity !== "All") {filteredCountries = filteredCountries.filter((country) =>  country.Activities && country.Activities.some((act) => act.name === activity))}
       if ((activity !== "All" || continent !== "All") && filteredCountries.length===0) filteredCountries = "noResults"
       return {
         ...state,

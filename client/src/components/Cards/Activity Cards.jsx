@@ -18,7 +18,7 @@ const ActivityCards = ({ activities , update }) => {
       <div className={styles.pagination}>
         <button onClick={prevPage} disabled={currentPage === 1}>←</button>
         <span className={styles.pagNum}>{currentPage} of {totalPages !== 0 ? totalPages : 1}</span>
-        <button onClick={nextPage} disabled={currentPage === totalPages}>→</button>
+        <button onClick={nextPage} disabled={currentPage === totalPages || totalPages === 0}>→</button>
       </div>
     </div>
   );

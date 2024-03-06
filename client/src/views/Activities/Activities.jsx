@@ -11,9 +11,7 @@ const Activities = () => {
       const { data } = await axios("http://localhost:3001/activities");
       setActivities(data);
     } catch (error) {
-      error.response && error.response.data
-        ? alert(error.response.data)
-        : alert(error.message);
+      alert(error);
     }
   };
   useEffect(() => {
