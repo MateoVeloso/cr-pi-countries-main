@@ -1,32 +1,27 @@
-const regexNotNumbers = /^[^\d]+$/;
-const regexNumbers = /^[0-9]+$/;
+const validateField = (name, value, activityNames) => {
 
-const validateField = (name, value) => {
+  const errors = {};
+  const regexNotNumbers = /^[^\d]+$/;
+
   switch (name) {
     case "name":
-      if (!value) return "Type a Name";
-      if (!regexNotNumbers.test(value)) return "You can't use numbers";
-      if (value.length > 30) return "Name is to long";
-      break;
+      if (!value) errors.name = "Type a Name";
+      if (value.length > 25) errors.name = "Name is to long";
+      if (value && value.length < 3) errors.name = "Name is to short";
+      if (value && !regexNotNumbers.test(value)) errors.name = "You can't use numbers";
+      if(activityNames.includes(value)) errors.name = "There's already an activity with that name";
     case "duration":
-      if (!value) return "Pick an estimate";
-      if (!regexNumbers.test(value)) return "Use posible numbers";
-      if (Number(value) > 72) return "Can't create an activity longer than 3 days";
-      break;
+      if (value && value<1) errors.duration = "Use posible numbers";
+      if (value > 72) errors.duration = "Can't create an activity longer than 3 days";
     case "difficulty":
-      if (!value) return "Choose an option";
+      if (!value) errors.difficulty = "Choose an option";
     case "season":
-      if (!value) return "Choose an option";
+      if (!value) errors.season = "Choose an option";
     case "countriesId":
-      if (!value)
-        return `You must select a ${
-          name === "countriesId" ? "country" : "option"
-        }`;
-      break;
+      if (value.length<1) errors.countriesId = "Choose at least one country";
     default:
-      break;
   }
-  return "";
+  return errors;
 };
 
 export default validateField;

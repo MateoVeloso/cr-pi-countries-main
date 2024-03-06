@@ -23,7 +23,9 @@
   color: #FFE7E7;
   border: none;
   border-radius: 10px;
-  height: 1.5rem;
+  height: 2.3rem;
+  min-width: 6rem;
+  font-weight: bold;
 }
 
 .searchBarBtns:hover {

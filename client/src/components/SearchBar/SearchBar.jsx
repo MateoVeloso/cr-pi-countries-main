@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { searchCountry } from "../../redux/actions";
 import styles from "./SearchBar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 export const SearchBar = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (term) => {
@@ -17,6 +18,8 @@ export const SearchBar = () => {
     setSearchTerm(value);
     handleSearch(value);
   };
+
+  useEffect(() => {setSearchTerm("")}, [location]);
 
   return (
     <div className={styles.container}>

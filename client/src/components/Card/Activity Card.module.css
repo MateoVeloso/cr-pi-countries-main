@@ -1,5 +1,5 @@
 .activityCard {
-  background-color:  rgb(255, 231, 231, 0.8); /* Adjust background color */
+  background-color:  rgb(255, 231, 231, 0.8);
   backdrop-filter: blur(3px);
   border-radius: 8px;
   padding: 1rem;
@@ -8,14 +8,33 @@
   width: 20rem;
 }
 
-.activityCard h2 {
-  font-size: 20px;
+.headDiv {
   margin-bottom: 25px;
   color: #944E63;
-  border-bottom: 2px;
-  border-bottom-style: solid;
-  border-color: #944E63;
+  border-bottom: 2px solid #944E63;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
+
+.headDiv h2 {
+  text-align: center;
+  flex: 1;
+  margin: 1rem 0;
+}
+
+.headDiv button {
+  font-size: medium;
+  font-weight: bold;
+  color: #944E63;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 
 .activityCard .details {
   display: grid;
@@ -45,4 +64,22 @@
   color: #944E63;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.flags{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.flags img{
+  width: 4rem;
+  height: 3rem;
+  margin: 0.3rem;
+  border-radius: 10px;
+}
+.flags img:hover {
+  filter: opacity(50%);
 }

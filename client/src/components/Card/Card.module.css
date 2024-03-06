@@ -34,11 +34,12 @@
 
 .cardText {
   flex: 1;
+  font-size: large;
 }
 
 .cardTitle {
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: larger;
   font-weight: bold;
 }
 

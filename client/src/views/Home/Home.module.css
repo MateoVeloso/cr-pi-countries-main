@@ -20,6 +20,7 @@
   cursor: pointer;
   border-radius: 10px;
   transition: transform 0.3s ease-in-out;
+  font-size: large;
 }
 
 .filterSelect:focus {
@@ -48,10 +49,11 @@
 .filterLabels{
   color: #FFE7E7;
   padding-right: 6px;
+  font-size: large;
 }
 
 body {
   margin: 0;
   padding: 0;
-  overflow-y: hidden;
+  overflow-y: auto;
 }

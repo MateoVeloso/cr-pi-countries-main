@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .detailContainer {
@@ -53,11 +53,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Alinea los elementos de .details a la izquierda */
+  font-size: large;
 }
 
+.details p{
+  display: inline;
+}
 .details > div {
   margin-bottom: 10px;
 }
+
 
 .detailBody h1 {
   font-size: 24px;

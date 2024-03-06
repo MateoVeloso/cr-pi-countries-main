@@ -1,5 +1,4 @@
 .nav {
-  display: flex;
   position: fixed;
   top: 3%;
   left: 50%;
@@ -9,4 +8,5 @@
   backdrop-filter: blur(3px);
   padding: 1px;
   border-radius: 10px;
+  z-index: 9999;
 }

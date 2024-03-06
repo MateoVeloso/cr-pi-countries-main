@@ -1,5 +1,5 @@
 import {
-  FILTER_BY_CONTINENT,
+  FILTERS,
   GET_ACTIVITIES,
   GET_ALL_COUNTRIES,
   SEARCH_COUNTRY,
@@ -12,9 +12,7 @@ const initialState = {
   allCountries: [],
   allCountriesBackup: [],
   filteredResults: [],
-  searchResults: [],
-  selectedCountries: null,
-  activityNames: [],
+  activityNames: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -22,62 +20,33 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
   switch (type) {
     case GET_ALL_COUNTRIES:
-
+      payload = payload.sort((a, b) => a.name.localeCompare(b.name));
       return {
         ...state,
         allCountries: payload,
         allCountriesBackup: payload,
       };
+
     case SEARCH_COUNTRY:
-      const searchTerm = payload;
       return {
         ...state,
-        searchResults: searchTerm,
+        allCountries: payload,
       };
-    case FILTER_BY_CONTINENT:
-      if (payload === "All") {
-        return {
-          ...state,
-          filteredResults: [],
-          searchResults: [],
-        };
-      }
-      let filteredCountries = [];
-      if (state.searchResults.length > 0) {
-        filteredCountries = state.searchResults.filter(
-          (country) => country.continent === payload
-        );
-      } else {
-        filteredCountries = state.allCountries.filter(
-          (country) => country.continent === payload
-        );
-      }
-      console.log(payload);
+
+    case FILTERS:
+      const { continent, activity } = payload;
+      let filteredCountries = state.allCountries;
+      if (continent !== "All") {filteredCountries = filteredCountries.filter((country) => country.continent === continent)}
+      if (activity !== "All") {filteredCountries = filteredCountries.filter((country) =>  country.Activities.some((act) => act.name === activity))}
+      if ((activity !== "All" || continent !== "All") && filteredCountries.length===0) filteredCountries = "noResults"
       return {
         ...state,
         filteredResults: filteredCountries, 
       };
+
     case SORT_COUNTRIES:
-      const hasFilteredResults = state.filteredResults.length > 0;
-      const hasSearchResults = state.searchResults.length > 0;
-
-      let resultsToSort = [];
-
-      if (hasFilteredResults) {
-        resultsToSort = [...state.filteredResults];
-      } else if (hasSearchResults) {
-        resultsToSort = [...state.searchResults];
-      } else {
-        resultsToSort = [...state.allCountries];
-      }
-
-      if (payload === "All") {
-        return {
-          ...state,
-          filteredResults: [], 
-          searchResults: [],
-        };
-      } else if (payload === "Ascending") {
+      let resultsToSort = [...state.allCountries];
+       if (payload === "Ascending") {
         resultsToSort.sort((a, b) => a.name.localeCompare(b.name));
       } else if (payload === "Descending") {
         resultsToSort.sort((a, b) => b.name.localeCompare(a.name));
@@ -91,43 +60,31 @@ const rootReducer = (state = initialState, { type, payload }) => {
         resultsToSort.sort((a, b) => a.area - b.area);
       }
 
-      if (hasFilteredResults) {
-        return {
-          ...state,
-          filteredResults: resultsToSort,
-        };
-      } else if (hasSearchResults) {
-        return {
-          ...state,
-          searchResults: resultsToSort,
-        };
-      } else {
-        return {
-          ...state,
-          filteredResults: resultsToSort,
-          searchResults: resultsToSort,
-        };
-      }
-    case SELECT_COUNTRIES:
       return {
-        ...state,
-        selectedCountry: payload,
-      };
+          ...state,
+          allCountries: resultsToSort,
+      }
+      
     case GET_ACTIVITIES:
       return {
         ...state,
         activityNames: payload,
       };
+
     case FILTER_ACTIVITY:
         const resetCountries = [...state.allCountries];
-        const filteredActivity = resetCountries.filter((country) =>
-          country.Activities.some((activity) => activity.name === payload)
-        );
+        const filteredActivity = resetCountries.filter((country) =>country.Activities.some((activity) => activity.name === payload));
         return {
           ...state,
-          filteredResults:
-          filteredActivity.length > 0 ? filteredActivity : resetCountries,
+          filteredResults: filteredActivity.length > 0 ? filteredActivity : resetCountries,
       };
+
+      case SELECT_COUNTRIES:
+      return {
+        ...state,
+        selectedCountry: payload,
+      };
+      
     default: return state
   }
 };

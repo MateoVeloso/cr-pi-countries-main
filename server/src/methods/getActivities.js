@@ -5,7 +5,7 @@ module.exports.getActivities = async (req, res) =>{
         const activities = await Activity.findAll({
             include: {
               model: Country,
-              attributes: ["id", "name"],
+              attributes: ["id", "name", "flag"],
               through: {
                 attributes: [],
               },

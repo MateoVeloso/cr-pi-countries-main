@@ -56,17 +56,17 @@ const Detail = () => {
         </div>
         <div>
           <h2>
-            {country.Activities && country.Activities.length > 0 ? (<strong>Activities:</strong>) : ("Activities: (no activity has been assigned)")}
+            {country.Activities && country.Activities.length > 0 
+              ? (<p>
+                  <strong><u>Activities:</u></strong> {
+                    country.Activities && country.Activities.length > 0 && (
+                      <NavLink to="/activities" className={styles.link}>
+                        <p>{country.Activities.map((activity) => activity.name).join(", ")}</p>
+                      </NavLink>)}
+                </p>) 
+              : ("Activities: (no activity has been assigned)")}
           </h2>
-          {country.Activities && country.Activities.length > 0 && (
-            <NavLink to="/activities" className={styles.link}>
-              <p>
-                {country.Activities
-                  .map((activity) => activity.name)
-                  .join(", ")}
-              </p>
-            </NavLink>
-          )}
+          
         </div>
       </div>
     </div>

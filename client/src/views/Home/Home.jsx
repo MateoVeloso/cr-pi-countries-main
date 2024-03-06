@@ -1,60 +1,68 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  filterByContinent,
+  filters,
   getActivitiesNames,
   getAllCountries,
-  sortCountries,
-  filterActivity
+  sortCountries
 } from "../../redux/actions";
 import Cards from "../../components/Cards/Cards";
 import styles from "./Home.module.css";
 import resetBtn from "../../assets/icons/btn-reset.png";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
-  const refOrder = useRef(null);
-  const refFilter = useRef(null);
+  const refOrder = useRef("Ascending");
+  const refContinent = useRef("ALL");
+  const refActivity = useRef("ALL");
+
   const dispatch = useDispatch();
+  const location = useLocation()
+  
   const countries = useSelector((state) => state.allCountries);
-  const searchResults = useSelector((state) => state.searchResults);
   const filteredResults = useSelector((state) => state.filteredResults);
-  const activityNames = useSelector((state) =>
-    state.activityNames.map((activity) => activity.name)
-  );
-  const showSearch = () => {
-    if (searchResults.length > 0) return searchResults;
-    return countries;
-  };
-  const filterResults = () => {
-    if (filteredResults.length > 0) return filteredResults;
-    return showSearch();
-  };
+  const activityNames = useSelector((state) =>state.activityNames.map((activity) => activity.name));
+
+  const handleSortCountries = (e) => {
+    dispatch(sortCountries(e.target.value))
+    dispatch(filters(refContinent.current.value, refActivity.current.value))
+  }
 
   const handleFilterActivity = (e) => {
-    dispatch(filterActivity(e.target.value));
+    const value = e.target.value;
+    dispatch(filters(refContinent.current.value, value));
   }
+
+  const handleFilterByContinent = (e) => {
+    const value = e.target.value;
+    dispatch(filters(value, refActivity.current.value));
+  }
+
+  const filterResults = () => {
+    if (filteredResults === "noResults") return [];
+    if (filteredResults.length > 0) return filteredResults;
+    return countries;
+  }
+
+  const resetFilters = () => {
+    refContinent.current.selectedIndex = 0;
+    refActivity.current.selectedIndex = 0;
+    refOrder.current.selectedIndex = 0;
+    dispatch(sortCountries(refOrder.current.value))
+    dispatch(filters(refContinent.current.value, refActivity.current.value))
+  };
+
+  useEffect(() => {
+    dispatch(filters(refContinent.current.value, refActivity.current.value));
+  }, [countries]);  
+
+  useEffect(resetFilters, [location])
 
   useEffect(() => {
     dispatch(getAllCountries());
     dispatch(getActivitiesNames());
   }, [dispatch]);
-  const handleFilterByContinent = (e) => {
-    const value = e.target.value;
-    dispatch(filterByContinent(value));
-  };
 
-  const handleOrder = (e) => {
-    dispatch(handleOrder(e.target.value));
-  };
-  const handleSortCountries = (e) => {
-    dispatch(sortCountries(e.target.value));
-  };
-
-  const resetFilters = () => {
-    dispatch(filterByContinent("All"));
-    refFilter.current.value = "";
-    refOrder.current.value = "";
-  };
   return (
     <div className={styles.homeBackground}>
       <div>
@@ -71,9 +79,8 @@ const Home = () => {
                 onChange={handleSortCountries}
                 id="Select Order"
               >
-                <option value="All">All</option>
                 <optgroup label="Order by name">
-                  <option value="Ascending">A-Z</option>
+                  <option value="Ascending" selected>A-Z</option>
                   <option value="Descending">Z-A</option>
                 </optgroup>
                 <optgroup label="Order by population">
@@ -86,11 +93,11 @@ const Home = () => {
                 </optgroup>
               </select>
               <label className={styles.filterLabels} htmlFor="Select Filter">
-                Filter by Continents
+                Filter by Continent
               </label>
               <select
                 className={styles.filterSelect}
-                ref={refFilter}
+                ref={refContinent}
                 name="filter"
                 onChange={handleFilterByContinent}
                 id="Select Filter"
@@ -99,7 +106,7 @@ const Home = () => {
                   <option value="All">All</option>
                   <option value="Africa">Africa</option>
                   <option value="Americas">America</option>
-                  <option value="Antarctica">Antarctic</option>
+                  <option value="Antarctic">Antarctic</option>
                   <option value="Asia">Asia</option>
                   <option value="Europe">Europe</option>
                   <option value="Oceania">Oceania</option>
@@ -108,7 +115,11 @@ const Home = () => {
               <label className={styles.filterLabels}>
                 Filter by Activity
               </label>
-              <select className={styles.filterSelect} onChange={handleFilterActivity}>
+              <select 
+                className={styles.filterSelect}
+                ref={refActivity}
+                onChange={handleFilterActivity}
+              >
                 <option value="All">All</option>
                 {activityNames.map((activity) => (<option key={activity}>{activity}</option>))}
               </select>

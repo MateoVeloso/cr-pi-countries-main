@@ -7,6 +7,8 @@
   margin-top: 3rem;
   background-color: rgba(255, 231, 231, 0.5);
   border-radius: 10px;
+  min-height: 50rem;
+  margin-bottom: 2rem;
 }
 
 h1{
@@ -20,8 +22,7 @@ h1{
   margin-bottom: 20px;
 }
 
-.inputActivities,
-.filterSelect {
+.inputActivities, .filterSelect {
   padding: 8px;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -37,13 +38,13 @@ h1{
 
 .activityContainer {
   display: flex;
-  flex-wrap: wrap; /* Centra las tarjetas horizontalmente */
-  gap: 20px; /* Espacio entre las tarjetas */
-  max-width: 90%; /* Ajusta el ancho máximo del contenedor */
-  margin: auto; /* Centra el contenedor horizontalmente */
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 90%;
+  margin: auto;
 }
 
-.activityCard { /* Ancho completo dentro del contenedor */
+.activityCard { 
   border: none;
   border-radius: 8px;
   padding: 10px;
@@ -63,7 +64,7 @@ h1{
 .pagination button {
   padding: 8px 16px;
   margin: 0 5px;
-  background-color: rgba(148, 78, 99, 0.7); /* Adjust background color */
+  background-color: rgba(148, 78, 99, 0.7); 
   backdrop-filter: blur(3px);
   color: #FFE7E7;
   border: none;
@@ -78,8 +79,13 @@ h1{
 
 .pagNum {
   color: #FFE7E7;
-  background-color: rgba(148, 78, 99, 0.7); /* Adjust background color */
+  background-color: rgba(148, 78, 99, 0.7); 
   backdrop-filter: blur(3px);
   border-radius: 10px;
   padding: 7px 16px;
+}
+
+.noAct{
+  color: rgba(148, 78, 99, 1);
+  font-size: 25px;
 }

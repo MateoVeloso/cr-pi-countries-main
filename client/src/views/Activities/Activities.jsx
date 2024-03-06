@@ -3,14 +3,12 @@ import ActivityCards from "../../components/Cards/Activity Cards";
 import styles from "./Activities.module.css";
 import axios from "axios";
 
-const URL = "http://localhost:3001/activities";
-
 const Activities = () => {
   const [activities, setActivities] = useState([]);
 
   const getAllActivities = async () => {
     try {
-      const { data } = await axios(URL);
+      const { data } = await axios("http://localhost:3001/activities");
       setActivities(data);
     } catch (error) {
       error.response && error.response.data
@@ -19,12 +17,12 @@ const Activities = () => {
     }
   };
   useEffect(() => {
-    getAllActivities();
+    getAllActivities()
   }, []);
 
   return (
     <div className={styles.container}>
-      <ActivityCards activities={activities} />
+      <ActivityCards activities={activities} update={getAllActivities} />
     </div>
   );
 };

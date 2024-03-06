@@ -11,8 +11,8 @@ const Card = ({ country }) => {
           <div className={styles.cardContent}>
             <img src={country.flag} alt="Flag"  className={styles.cardImage}/>
             <div className={styles.cardText}>
-              <p className={styles.cardSubText}><strong>Capital:</strong> {country.capital}</p>
-              <p className={styles.cardSubText}><strong>Continent:</strong> {country.continent}</p>
+              <p className={styles.cardText}><strong>Capital:</strong> {country.capital}</p>
+              <p className={styles.cardText}><strong>Continent:</strong> {country.continent}</p>
             </div>
           </div>
         </div>

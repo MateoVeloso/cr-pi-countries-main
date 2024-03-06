@@ -5,7 +5,7 @@ const paginate = (data, numItems = 10) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
 
-  useEffect(() => { setCurrentPage(1) }, [data]);
+  useEffect(() => { if(numItems===10 || data.length%numItems===0) setCurrentPage(1) }, [data]);
 
   useEffect(() => {
     const lastIndx = currentPage * numItems;
@@ -16,7 +16,6 @@ const paginate = (data, numItems = 10) => {
 
   const nextPage = ()=> setCurrentPage((prevPage) => prevPage + 1)
   const prevPage = ()=> setCurrentPage((prevPage) => prevPage - 1)
-  const goToPage = (pageNum)=> setCurrentPage(pageNum)
   const resetPage = ()=> setCurrentPage(1)
 
   return {
@@ -24,7 +23,6 @@ const paginate = (data, numItems = 10) => {
     currentItems: currentPageData,
     nextPage,
     prevPage,
-    goToPage,
     resetPage,
     totalPages: Math.ceil(data.length / numItems),
   };

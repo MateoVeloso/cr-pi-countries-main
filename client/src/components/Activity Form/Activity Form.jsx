@@ -1,43 +1,45 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCountries, selectCountry } from "../../redux/actions";
+import { getAllCountries, selectCountry, getActivitiesNames } from "../../redux/actions";
 import validateField from "./validate";
 import styles from "./Activity Form.module.css";
 
-const URL = "http://localhost:3001/activities";
 
 const ActivityForm = () => {
-  const [activityValues, setActivityValues] = useState({
-    name: "",
-    difficulty: "",
-    duration: "",
-    season: "",
-    countriesId: [],
-  });
-  const [errors, setErrors] = useState({
-    name: "",
-    difficulty: "",
-    duration: "",
-    season: "",
-    countriesId: "",
-  });
-
-  const [created, setCreated] = useState(false);
-  const allCountries = useSelector((state) => state.allCountries);
-  const [countriesCopied, setCountriesCopied] = useState([]);
-
-  useEffect(() => {setCountriesCopied(allCountries)}, [allCountries]);
 
   const dispatch = useDispatch();
 
+  const allCountries = useSelector((state) => state.allCountries);
+  const activityNames = useSelector((state) =>state.activityNames.map((activity) => activity.name));
+  
+  useEffect(() => {
+    dispatch(getAllCountries());
+    dispatch(getActivitiesNames());
+  }, [dispatch]);
+
+  const [activityValues, setActivityValues] = useState({name: "", difficulty: "", duration: "", season: "", countriesId: []});
+  const [errors, setErrors] = useState({
+      name: "Type a name",
+      difficulty: "Choose an option",
+      season: "Choose an option",
+      countriesId: "Choose at least one country"
+    });
+
   const createActivity = async (formValues) => {
     try {
-      const { data } = await axios.post(URL, formValues);
+      const { data } = await axios.post("http://localhost:3001/activities", formValues);
       if (data.name) {
-        setCreated(true);
         alert("Activity Added");
         dispatch(getAllCountries());
+        dispatch(getActivitiesNames());
+        setErrors({
+          name: "Type a name",
+          difficulty: "Choose an option",
+          season: "Choose an option",
+          countriesId: "Choose at least one country"
+      })
+        setActivityValues({ name: "", difficulty: "", duration: "", season: "", countriesId: [] });
       }
     } catch (error) {
       error.response && error.response.data? alert(JSON.stringify(error.response.data, null, 2)): alert(error.message);
@@ -46,41 +48,26 @@ const ActivityForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(errors);
     createActivity(activityValues);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    const fieldErrors = validateField(name, value, activityNames);
+    setErrors({ ...errors, [name]: fieldErrors[name] });
     setActivityValues({...activityValues, [name]: value});
-    setErrors({...errors, [name]: validateField(name, value)});
+    console.log(errors);
   }
 
   const handleChangeCountries = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-
+    console.log(selectedOptions);
+    const fieldErrors = validateField("countriesId", selectedOptions);
+    console.log("fieldErrors: "+fieldErrors);
+    setErrors({ ...errors, countriesId: fieldErrors.countriesId });
     setActivityValues({...activityValues, countriesId: [...selectedOptions]});
-
     dispatch(selectCountry(selectedOptions));
-
-    setErrors({...errors, countriesId: validateField("countriesId", selectedOptions)});
-  };
-
-  const handleClick = () => {
-    setActivityValues({
-      name: "",
-      difficulty: "",
-      duration: "",
-      season: "",
-      countriesId: [],
-    });
-    setErrors({
-      name: "",
-      difficulty: "",
-      duration: "",
-      season: "",
-      countriesId: "",
-    });
-    setCreated(true);
   };
 
   return (
@@ -98,7 +85,7 @@ const ActivityForm = () => {
                 onChange={handleChange}
                 placeholder="activity name..."
               />
-              {errors.name && <p>{errors.name}</p>}
+              <p className={styles.error}>{errors.name}</p>
             </div>
             <div>
               <label className={styles.formLabel} htmlFor="difficulty">
@@ -119,10 +106,10 @@ const ActivityForm = () => {
                 <option value='4'>4</option>
                 <option value='5'>5</option>
               </select>
-              {errors.difficulty && <p>{errors.difficulty}</p>}
+              <p className={styles.error}>{errors.difficulty}</p>
             </div>
             <div>
-              <label htmlFor="duration">Duration:</label>
+              <label htmlFor="duration">Duration <small>{"(optional)"}</small>:</label>
               <input
                 className={styles.formInput}
                 type="number"
@@ -131,7 +118,7 @@ const ActivityForm = () => {
                 onChange={handleChange}
                 placeholder="duration(hs)..."
               />
-              {errors.duration && <span>{errors.duration}</span>}
+              <p className={styles.error}>{errors.duration}</p>
             </div>
             <div>
               <label htmlFor="season">Season:</label>
@@ -149,10 +136,10 @@ const ActivityForm = () => {
                 <option value="winter">Winter</option>
                 <option value="spring">Spring</option>
               </select>
-              {errors.season && <span>{errors.season}</span>}
+              <p className={styles.error}>{errors.season}</p>
             </div>
             <div>
-              <label htmlFor="countries">Select at least one country: </label>
+              <label htmlFor="countries">Choose countries: </label>
               <select
                 className={styles.formSelect}
                 name="countries"
@@ -160,9 +147,8 @@ const ActivityForm = () => {
                 onChange={handleChangeCountries}
                 multiple
               >
-                {countriesCopied.map((country) => (
+                {allCountries.map((country) => (
                   <option
-                    onChange={() => console.log("Country ID:", country.id)}
                     value={country.id}
                     key={country.id}
                   >
@@ -170,10 +156,16 @@ const ActivityForm = () => {
                   </option>
                 ))}
               </select>
-              {errors.countriesId && <span>{errors.countriesId}</span>}
+              <p className={styles.error}>{errors.countriesId}</p>
             </div>
             <div className={styles.formButtonContainer}>
-              <button className={styles.formButton} type="submit">
+              <button 
+                className={errors && Object.keys(errors).filter(key => errors[key] !== undefined).length === 0
+                    ? styles.formButton
+                    : styles.formButtonDisabled}
+                type="submit"
+                disabled={Object.keys(errors).filter(key => errors[key] !== undefined).length !== 0}
+              >
                 Create
               </button>
             </div>
